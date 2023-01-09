@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +21,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        Post::truncate();
+
+        $post = new Post();
+        $post->title = fake()->sentence(6);
+        $post->slug = Post::generateSlug($post->title);
+        $post->content = fake()->paragraph(3, true);
+        $post->save();
+
     }
 }
